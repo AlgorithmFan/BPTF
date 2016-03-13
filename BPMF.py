@@ -27,7 +27,7 @@ class BPMF:
         mu0 = np.zeros(self.numFactors)
         X_bar = matrix.mean(axis=1)
         v0 = self.numFactors
-        mu0_post = beta0 * mu0 + N*
+        # mu0_post = beta0 * mu0 + N*
 
 
     def buildModel(self):
