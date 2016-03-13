@@ -12,3 +12,14 @@ class PMF:
         self.cf = cf
         self.numUsers = 0
         self.numItems = 0
+
+    def buildModel(self):
+        pass
+
+    def predict(self):
+        pass
+
+
+
+if __name__ == '__main__':
+    pass
