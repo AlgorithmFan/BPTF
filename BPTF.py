@@ -3,6 +3,7 @@
 
 from readConfig import ReadConfig
 import numpy as np
+from wishart import wishrnd
 
 class BPTF:
     def __init__(self, trainTensor, testTensor, cf):
@@ -23,7 +24,7 @@ class BPTF:
         self.iWalpha = 1.0/self.Walpha
 
 
-    def generateUVParameters(self, matrix, N):
+    def generateUVHyperParameters(self, matrix, N):
         ''''''
         # The prior of matrix
         beta0 = 2.0
@@ -42,7 +43,26 @@ class BPTF:
         WI0_post = WI0 + N * S_bar + beta0 * N / beta0_post * np.outer(mu0 - X_bar, mu0 - X_bar)
         W0_post = np.linalg.inv(WI0_post)
 
-        Lambda =
+        Lambda = wishrnd(W0_post, v0_post)
+        sigma = np.linalg.cholesky(np.linalg.inv(Lambda * beta0))
+        normalRdn = np.random.normal(0, 1, size=self.numFactors)
+
+        mu_post = np.inner(sigma, normalRdn) + mu0_post
+
+        return mu_post, Lambda
+
+    def generateTHyperParameters(self, matrix, K):
+        pass
+
+    def gibbsUVSampling(self):
+        pass
+
+    def gibbsTSampling(self):
+        pass
+
+    def buildModel(self):
+        pass
+
 
 
 
