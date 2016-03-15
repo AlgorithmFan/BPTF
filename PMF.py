@@ -12,6 +12,7 @@ class PMF:
         self.cf = cf
         self.numUsers = 0
         self.numItems = 0
+        self.predictions = dict()
 
     def initModel(self):
         self.numUsers, self.numItems = self.trainMatrix.shape
@@ -49,8 +50,12 @@ class PMF:
             else:
                 oldLoss = loss
 
-
-
+        for u in range(self.numUsers):
+            for i in range(self.numItems):
+                rate = self.testMatrix[u, i]
+                if rate == 0:
+                    continue
+                self.prediction[(u, i)] = self.predict(u, i)
 
 
     def predict(self, u, i):
