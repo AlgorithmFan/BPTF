@@ -26,6 +26,7 @@ class PMF:
 
     def buildModel(self):
 
+        oldLoss = np.inf
         for iteration in range(self.MAX_Iterations):
             loss = 0.0
 
@@ -42,6 +43,11 @@ class PMF:
                     self.Q[i, :] += self.lRate * (eui * self.P[u, :] - self.regI * self.Q[i, :])
 
                     loss += self.regU * np.sum(self.P[u, :] * self.P[u, :]) + self.regI * np.sum(self.Q[i, :] * self.Q[i, :])
+
+            if np.abs(oldLoss - loss) < 0.001:
+                break
+            else:
+                oldLoss = loss
 
 
 
