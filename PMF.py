@@ -61,8 +61,10 @@ class PMF:
     def predict(self, u, i):
         return np.sum(self.P[u, :] * self.Q[i, :])
 
-    def evaluate(self):
-        pass
+    def evaluate(self, evalString):
+        metrics = {'rmse': self.rmse, 'mse': self.mse, 'mae': self.mae}
+        result = metrics[evalString]()
+        return result
 
     def rmse(self):
         loss = 0
