@@ -64,6 +64,34 @@ class PMF:
     def evaluate(self):
         pass
 
+    def rmse(self):
+        loss = 0
+        num = 0
+        for u, i in self.predictions:
+            error = self.testMatrix[u, i] - self.prediction[(u, i)]
+            loss += error * error
+            num += 1
+        return np.sqrt(loss/num)
+
+    def mse(self):
+        loss = 0
+        num = 0
+        for u, i in self.predictions:
+            error = self.testMatrix[u, i] - self.prediction[(u, i)]
+            loss += error * error
+            num += 1
+        return loss / num
+
+    def mae(self):
+        loss = 0
+        num = 0
+        for u, i in self.prediction:
+            error = np.abs(self.testMatrix[u, i] - self.predictions[(u, i)])
+            loss += error
+            num += 1
+        return loss / num
+
+
     def execute(self):
         self.initModel()
         self.buildModel()
